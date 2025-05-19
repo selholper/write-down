@@ -13,7 +13,7 @@ export default new Sequelize(
         dialectOptions: {
             ssl: {
                 require: true,
-                rejectUnauthorized: false // Use this only for development. For production, you should use proper CA certificates
+                rejectUnauthorized: false
             }
         }
     }
