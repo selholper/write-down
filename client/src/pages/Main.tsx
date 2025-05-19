@@ -28,9 +28,6 @@ const Main: React.FC = observer(() => {
                 {/* Pinned Notes Section */}
                 {pinnedNotes.length > 0 && (
                     <Box sx={{ width: '100%', mb: 2 }}>
-                        <Typography variant="h6" sx={{ mb: 1 }}>
-                            Pinned Notes
-                        </Typography>
                         {pinnedNotes.map((note) => (
                             <Grid sx={{ m: 2 }} className="w-100" item key={note.id}>
                                 <NoteCard key={note.id} note={note} />
@@ -43,9 +40,6 @@ const Main: React.FC = observer(() => {
                 {/* Unpinned Notes Section */}
                 {unpinnedNotes.length > 0 && (
                     <Box sx={{ width: '100%' }}>
-                        <Typography variant="h6" sx={{ mb: 1 }}>
-                            Other Notes
-                        </Typography>
                         {unpinnedNotes.map((note) => (
                             <Grid sx={{ m: 2 }} className="w-100" item key={note.id}>
                                 <NoteCard key={note.id} note={note} />
