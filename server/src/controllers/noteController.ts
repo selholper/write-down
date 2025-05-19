@@ -8,8 +8,14 @@ export const get = async (req: Req, res: Res): Promise<Res> => {
 
 export const create = async (req: Req, res: Res, next: Next): Promise<Res | void> => {
     try {
-        const { title, text } = req.body;
-        const note = await Note.create({ userId: req.user!.id, title, text });
+        const { title, text, color, isPinned } = req.body;
+        const note = await Note.create({
+            userId: req.user!.id,
+            title,
+            text,
+            color: color || '#ffffff',
+            isPinned: isPinned || false
+        });
         return res.json(note);
     }
     catch (err) {
@@ -21,15 +27,15 @@ export const create = async (req: Req, res: Res, next: Next): Promise<Res | void
 };
 
 export const change = async (req: Req, res: Res): Promise<Res> => {
-    const { id, title, text } = req.body;
+    const { id, title, text, color, isPinned } = req.body;
     const note = await Note.findByPk(id as string);
     if (!note)
         return res.status(400).send('Invalid noteId.');
     if (note.userId !== req.user!.id)
         return res.status(400).send('Permission denied.');
-    await note.update({ title, text });
+    await note.update({ title, text, color, isPinned });
     return res.json(note);
-}; 
+};
 
 export const destroy = async (req: Req, res: Res): Promise<Res> => {
     const { noteId } = req.query;

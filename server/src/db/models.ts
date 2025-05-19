@@ -60,6 +60,14 @@ export class Note extends Model {
     @Column(DataType.TEXT)
     declare text: string;
 
+    @Default('#ffffff')
+    @Column(DataType.STRING(7))
+    declare color: string;
+
+    @Default(false)
+    @Column(DataType.BOOLEAN)
+    declare isPinned: boolean;
+
     @ForeignKey(() => User)
     @AllowNull(false)
     @Validate({

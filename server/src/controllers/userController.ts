@@ -10,7 +10,7 @@ export const signUp = async (req: Req, res: Res, next: Next): Promise<Res | void
             return res.status(400).send('User password cannot be empty.');
         const passwordHash = await bcrypt.hash(password, 5);
         const user = await User.create({ name, email, password: passwordHash });
-        return (await withTokens(res, user)).send('Successfully singed up.');
+        return (await withTokens(res, user)).json({ name: user.name, message: 'Successfully singed up.' });
     }
     catch (err) {
         if (err.errors)
@@ -34,7 +34,7 @@ export const signIn = async (req: Req, res: Res): Promise<Res> => {
     if (!bcrypt.compareSync(password, user.password))
         return res.status(400).send('Wrong password specified.');
     
-    return (await withTokens(res, user)).send('Successfully signed in.');
+    return (await withTokens(res, user)).json({ name: user.name, message: 'Successfully signed in.' });
 };
 
 export const signOut = async (req: Req, res: Res): Promise<Res> => {
@@ -42,5 +42,5 @@ export const signOut = async (req: Req, res: Res): Promise<Res> => {
 };
 
 export const updateAccessToken = async (req: Req, res: Res): Promise<Res> => {
-    return withAccessToken(res, req.user!).send('Successfully authorized.');
+    return withAccessToken(res, req.user!).json({ name: req.user!.name, message: 'Successfully authorized.' });
 };

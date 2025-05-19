@@ -1,6 +1,6 @@
 import React, { useContext} from 'react';
-import { AppBar, Button, IconButton } from '@mui/material';
-import { Add } from '@mui/icons-material';
+import { AppBar, Button, IconButton, Typography, Box } from '@mui/material';
+import { Add, Person } from '@mui/icons-material';
 import { AppContext } from 'App';
 
 const Header: React.FC = () => {
@@ -12,6 +12,14 @@ const Header: React.FC = () => {
                 <Add />
             </IconButton>
             <div className="flex-grow-1" />
+            {authStore.userInfo && (
+                <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+                    <Person sx={{ mr: 1 }} />
+                    <Typography variant="body1">
+                        {authStore.userInfo.name}
+                    </Typography>
+                </Box>
+            )}
             <Button color="inherit" onClick={authStore.signOut}>Logout</Button>
         </AppBar>
     );
