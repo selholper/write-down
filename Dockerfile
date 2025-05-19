@@ -28,7 +28,7 @@ COPY server ./server
 WORKDIR /app
 
 # Expose ports for client and server
-EXPOSE 3001
+EXPOSE 3000 3002
 
 # Inststall concurrently library to run server and client simultaneously
 RUN npm install -g concurrently
